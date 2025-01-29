@@ -20,6 +20,7 @@ from .utils.utils_normreader import (
     get_usage_start_end,
     get_gain_per_person_and_appliance_and_typ_norm_sia2024,
     get_gain_per_person_and_appliance_and_typ_norm_18599,
+    get_gain_per_person_and_appliance_and_typ_norm_mza
 )
 from .utils.utils_readcsv import (
     read_gwp_pe_factors_data,
@@ -316,11 +317,19 @@ class DataSourceCSV(DataSource):
                     self.gains_from_group_values, row
                 )
 
-            else:
+            elif self.profile_from_norm == "din18599":
                 (
                     gain_person_and_typ_norm,
                     appliance_gains,
                 ) = get_gain_per_person_and_appliance_and_typ_norm_18599(
+                    row, self.gains_from_group_values
+                )
+
+            else:
+                (
+                    gain_person_and_typ_norm,
+                    appliance_gains,
+                ) = get_gain_per_person_and_appliance_and_typ_norm_mza(
                     row, self.gains_from_group_values
                 )
 

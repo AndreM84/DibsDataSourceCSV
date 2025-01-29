@@ -7,6 +7,12 @@ def get_usage_start_end(usage_from_norm: str, row: pd.DataFrame) -> Tuple[int, i
         return int(row["usage_start_sia2024"].to_string(index=False).strip()), int(
             row["usage_end_sia2024"].to_string(index=False).strip()
         )
+
+    elif usage_from_norm == "mza":
+        return int(row["usage_start_mza"].to_string(index=False).strip()), int(
+            row["usage_end_mza"].to_string(index=False).strip()
+        )
+
     return int(row["usage_start_18599"].to_string(index=False).strip()), int(
         row["usage_end_18599"].to_string(index=False).strip()
     )
@@ -78,6 +84,28 @@ def get_gain_per_person_and_appliance_and_typ_norm_18599(
     return get_typ_norm_and_gain_per_person_18599(row), get_appliance_gains_18599(
         gains_from_group_values, row
     )
+
+def get_gain_per_person_and_appliance_and_typ_norm_mza(row, gains_from_group_values: str ) -> Tuple[Tuple[float, str], float]:
+    gain_person_and_typ_norm = float(row["gain_per_person_mza"].to_string(index=False).strip()),
+    row["typ_mza"].to_string(index=False).strip()
+
+    match gains_from_group_values:
+        case "low":
+            appliance_gains = float(
+                row["appliance_gains_tief_mza"].to_string(index=False).strip()
+            )
+
+        case "mid":
+            appliance_gains = float(
+                row["appliance_gains_mittel_mza"].to_string(index=False).strip()
+            )
+
+        case "max":
+            appliance_gains = float(
+                row["appliance_gains_hoch_mza"].to_string(index=False).strip()
+            )
+    return gain_person_and_typ_norm, appliance_gains
+
 
 
 def find_row(gains_zuweisungen: pd.DataFrame, uk_geb: str) -> pd.DataFrame:
