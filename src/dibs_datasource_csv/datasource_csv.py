@@ -66,12 +66,12 @@ from dibs_data.data_utils import get_data_path
 
 class DataSourceCSV(DataSource):
     def __init__(
-        self,
-        data_path: str,
-        profile_from_norm: str,
-        gains_from_group_values: str,
-        usage_from_norm: str,
-        weather_period: str,
+            self,
+            data_path: str,
+            profile_from_norm: str,
+            gains_from_group_values: str,
+            usage_from_norm: str,
+            weather_period: str,
     ):
         self.data_path = data_path
         self.profile_from_norm = profile_from_norm
@@ -145,7 +145,7 @@ class DataSourceCSV(DataSource):
 
         try:
             if not hk_and_uk_in_zuweisungen(
-                data, self.building.hk_geb, self.building.uk_geb
+                    data, self.building.hk_geb, self.building.uk_geb
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
@@ -178,7 +178,7 @@ class DataSourceCSV(DataSource):
 
         try:
             if hk_or_uk_not_in_zuweisungen(
-                data, self.building.hk_geb, self.building.uk_geb
+                    data, self.building.hk_geb, self.building.uk_geb
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
@@ -317,14 +317,19 @@ class DataSourceCSV(DataSource):
                     self.gains_from_group_values, row
                 )
 
-            else:
-                # self.profile_from_norm == "din18599":
+            elif self.profile_from_norm == "din18599":
                 (
                     gain_person_and_typ_norm,
                     appliance_gains,
                 ) = get_gain_per_person_and_appliance_and_typ_norm_18599(
                     row, self.gains_from_group_values
                 )
+
+            else:
+                gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
+                                                                                                               self.gains_from_group_values)
+
+            return gain_person_and_typ_norm, appliance_gains
 
             # else:
             #     (
@@ -334,6 +339,3 @@ class DataSourceCSV(DataSource):
             #         row, self.gains_from_group_values
             #     )
             #     print(f'hier ist mein gain_person_and_typ_norm {gain_person_and_typ_norm}')
-
-            return gain_person_and_typ_norm, appliance_gains
-
