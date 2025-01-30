@@ -303,9 +303,7 @@ class DataSourceCSV(DataSource):
 
         data: pd.DataFrame = read_profiles_zuweisungen_data()
 
-
         if hk_and_uk_in_zuweisungen(data, self.building.hk_geb, self.building.uk_geb):
-            print(f'the profile_from_norm is : {self.profile_from_norm}')
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
 
             gain_person_and_typ_norm: tuple[float, str]
@@ -318,23 +316,13 @@ class DataSourceCSV(DataSource):
                 ) = get_gain_per_person_and_appliance_and_typ_norm_sia2024(
                     row, self.gains_from_group_values
                 )
-                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
-            elif self.profile_from_norm == "din18599":
-                print('True True')
+            else:
                 (
                     gain_person_and_typ_norm,
                     appliance_gains,
                 ) = get_gain_per_person_and_appliance_and_typ_norm_18599(
                     row, self.gains_from_group_values
                 )
-                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
-            else:
-                print('Falseeeee')
-
-            # else:
-            #     gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
-            #                                                                                                    self.gains_from_group_values)
-            #     print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             return gain_person_and_typ_norm, appliance_gains
