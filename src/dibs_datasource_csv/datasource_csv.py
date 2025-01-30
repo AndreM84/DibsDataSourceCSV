@@ -332,6 +332,7 @@ class DataSourceCSV(DataSource):
                 ) = get_gain_per_person_and_appliance_and_typ_norm_mza(
                     row, self.gains_from_group_values
                 )
-
+                print(f'hier ist mein gain_person_and_typ_norm {gain_person_and_typ_norm}')
 
             return gain_person_and_typ_norm, appliance_gains
+
