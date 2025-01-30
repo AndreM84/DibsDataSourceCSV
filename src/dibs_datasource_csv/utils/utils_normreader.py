@@ -71,7 +71,7 @@ def get_typ_norm_and_gain_per_person_18599(row: pd.DataFrame) -> Tuple[float, st
 
 
 def get_gain_per_person_and_appliance_and_typ_norm_sia2024(
-    gains_from_group_values: str, row: pd.DataFrame
+    row: pd.DataFrame, gains_from_group_values: str
 ) -> Tuple[Tuple[float, str], float]:
     return get_typ_norm_and_gain_per_person_sia2024(row), get_appliance_gains_sia2024(
         gains_from_group_values, row

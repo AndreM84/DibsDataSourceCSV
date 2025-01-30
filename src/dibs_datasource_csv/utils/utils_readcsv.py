@@ -60,7 +60,9 @@ def read_gwp_pe_factors_data() -> pd.DataFrame | None:
     )
     nan_values = data[data["Energy Carrier"].isna()]
     if not nan_values.empty:
-        data["Energy Carrier"].replace({pd.NaT: "None"}, inplace=True)
+        data["Energy Carrier"] = data["Energy Carrier"].replace({pd.NaT: "None"})
+
+        # data["Energy Carrier"].replace({pd.NaT: "None"}, inplace=True)
     return data
 
 

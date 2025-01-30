@@ -316,7 +316,7 @@ class DataSourceCSV(DataSource):
                     gain_person_and_typ_norm,
                     appliance_gains,
                 ) = get_gain_per_person_and_appliance_and_typ_norm_sia2024(
-                    self.gains_from_group_values, row
+                    row, self.gains_from_group_values
                 )
                 print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
@@ -329,19 +329,12 @@ class DataSourceCSV(DataSource):
                     row, self.gains_from_group_values
                 )
                 print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
-
             else:
-                gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
-                                                                                                               self.gains_from_group_values)
-                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
-
-            return gain_person_and_typ_norm, appliance_gains
+                print('Falseeeee')
 
             # else:
-            #     (
-            #         gain_person_and_typ_norm,
-            #         appliance_gains,
-            #     ) = get_gain_per_person_and_appliance_and_typ_norm_mza(
-            #         row, self.gains_from_group_values
-            #     )
-            #     print(f'hier ist mein gain_person_and_typ_norm {gain_person_and_typ_norm}')
+            #     gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
+            #                                                                                                    self.gains_from_group_values)
+            #     print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
+
+            return gain_person_and_typ_norm, appliance_gains
