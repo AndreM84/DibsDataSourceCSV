@@ -317,6 +317,7 @@ class DataSourceCSV(DataSource):
                 ) = get_gain_per_person_and_appliance_and_typ_norm_sia2024(
                     self.gains_from_group_values, row
                 )
+                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             elif self.profile_from_norm == "din18599":
                 (
@@ -325,10 +326,12 @@ class DataSourceCSV(DataSource):
                 ) = get_gain_per_person_and_appliance_and_typ_norm_18599(
                     row, self.gains_from_group_values
                 )
+                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             else:
                 gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
                                                                                                                self.gains_from_group_values)
+                print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             return gain_person_and_typ_norm, appliance_gains
 
