@@ -85,28 +85,38 @@ def get_gain_per_person_and_appliance_and_typ_norm_18599(
         gains_from_group_values, row
     )
 
-def get_gain_per_person_and_appliance_and_typ_norm_mza(row, gains_from_group_values: str ) -> Tuple[Tuple[float, str], float]:
-    gain_person_and_typ_norm = float(row["gain_per_person_mza"].to_string(index=False).strip()),
-    row["typ_mza"].to_string(index=False).strip()
 
+def get_typ_norm_and_gain_per_person_mza(row: pd.DataFrame) -> Tuple[float, str]:
+    return (
+        float(row["gain_per_person_mza"].to_string(index=False).strip()),
+        row["typ_mza"].to_string(index=False).strip(),
+    )
+
+
+def get_appliance_gains_mza(gains_from_group_values: str, row: pd.DataFrame) -> float:
     match gains_from_group_values:
         case "low":
-            appliance_gains = float(
+            return float(
                 row["appliance_gains_tief_mza"].to_string(index=False).strip()
             )
 
         case "mid":
-            appliance_gains = float(
+            return float(
                 row["appliance_gains_mittel_mza"].to_string(index=False).strip()
             )
 
         case "max":
-            appliance_gains = float(
+            return float(
                 row["appliance_gains_hoch_mza"].to_string(index=False).strip()
             )
-    return gain_person_and_typ_norm, appliance_gains
 
 
+def get_gain_per_person_and_appliance_and_typ_norm_mza(
+    row, gains_from_group_values: str
+) -> Tuple[Tuple[float, str], float]:
+    return get_typ_norm_and_gain_per_person_mza(row), get_appliance_gains_mza(
+        gains_from_group_values, row
+    )
 
 def find_row(gains_zuweisungen: pd.DataFrame, uk_geb: str) -> pd.DataFrame:
     return gains_zuweisungen[gains_zuweisungen["uk_geb"] == uk_geb]
