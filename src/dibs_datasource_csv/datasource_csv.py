@@ -300,10 +300,11 @@ class DataSourceCSV(DataSource):
         Return type:
             Tuple[Tuple[float, str], float]
         """
-
+        print(self.profile_from_norm)
         data: pd.DataFrame = read_profiles_zuweisungen_data()
 
         if hk_and_uk_in_zuweisungen(data, self.building.hk_geb, self.building.uk_geb):
+            print(self.profile_from_norm)
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
 
             gain_person_and_typ_norm: tuple[float, str]
