@@ -320,6 +320,7 @@ class DataSourceCSV(DataSource):
                 print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             elif self.profile_from_norm == "din18599":
+                print('True True')
                 (
                     gain_person_and_typ_norm,
                     appliance_gains,
