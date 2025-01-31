@@ -95,12 +95,6 @@ def read_profiles_zuweisungen_data() -> pd.DataFrame | None:
     file_path = os.path.join(
         data_path, "auxiliary", "norm_profiles", "profiles_zuweisungen.csv"
     )
-    print('======================================================================')
-    dfutf = pd.read_csv(file_path, sep=";", encoding="utf-8")
-    dfutf["uk_geb"] = dfutf["uk_geb"].astype(str)
-    dfutf_filtered = dfutf[dfutf["uk_geb"] == "Feuerwehr, Rettungswache"]
-    print(dfutf_filtered.to_string())
-    print('======================================================================')
 
 
     return pd.read_csv(file_path, sep=";", encoding="utf-8")
