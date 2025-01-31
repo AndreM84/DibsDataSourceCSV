@@ -97,7 +97,8 @@ def read_profiles_zuweisungen_data() -> pd.DataFrame | None:
     )
 
     df = pd.read_csv(file_path, sep=";", encoding="latin")
-    df_filtered = df[df["hk_geb"] == "Produktions-, Werkstatt-, Lager- oder Betriebsgebäude"]
+    df["uk_geb"] = df["uk_geb"].astype(str)
+    df_filtered = df[df["uk_geb"] == "Feuerwehr, Rettungswache"]
     print(df_filtered)
     return pd.read_csv(file_path, sep=";", encoding="latin")
 
