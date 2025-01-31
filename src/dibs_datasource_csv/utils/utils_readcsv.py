@@ -99,7 +99,7 @@ def read_profiles_zuweisungen_data() -> pd.DataFrame | None:
     dfutf = pd.read_csv(file_path, sep=";", encoding="utf-8")
     dfutf["uk_geb"] = dfutf["uk_geb"].astype(str)
     dfutf_filtered = dfutf[dfutf["uk_geb"] == "Feuerwehr, Rettungswache"]
-    print(f'typ_18599 ist : {dfutf_filtered["typ_18599"]} und typ_mza ist : {dfutf_filtered["typ_mza"]}')
+    print(dfutf_filtered)
     print('======================================================================')
 
 
