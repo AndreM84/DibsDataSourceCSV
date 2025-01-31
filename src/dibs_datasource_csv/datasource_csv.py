@@ -318,12 +318,16 @@ class DataSourceCSV(DataSource):
                     row, self.gains_from_group_values
                 )
 
-            else:
+            elif self.profile_from_norm == "din18599":
                 (
                     gain_person_and_typ_norm,
                     appliance_gains,
                 ) = get_gain_per_person_and_appliance_and_typ_norm_18599(
                     row, self.gains_from_group_values
                 )
+
+            else:
+                gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
+                                                                                                               self.gains_from_group_values)
 
             return gain_person_and_typ_norm, appliance_gains
