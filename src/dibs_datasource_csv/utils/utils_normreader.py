@@ -2,14 +2,15 @@ import pandas as pd
 from typing import Tuple
 
 
-def get_usage_start_end(usage_from_norm: str, row: pd.DataFrame) -> Tuple[int, int]:
+# def get_usage_start_end(usage_from_norm: str, row: pd.DataFrame) -> Tuple[int, int]:
+def get_usage_start_end(usage_from_norm: str, row: pd.DataFrame) -> Tuple[float, float]:
     if usage_from_norm == "sia2024":
         return int(row["usage_start_sia2024"].to_string(index=False).strip()), int(
             row["usage_end_sia2024"].to_string(index=False).strip()
         )
 
     elif usage_from_norm == "mza":
-        return int(row["usage_start_mza"].to_string(index=False).strip()), int(
+        return float(row["usage_start_mza"].to_string(index=False).strip()), float(
             row["usage_end_mza"].to_string(index=False).strip()
         )
 
