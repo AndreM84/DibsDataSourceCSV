@@ -96,7 +96,8 @@ def read_profiles_zuweisungen_data() -> pd.DataFrame | None:
         data_path, "auxiliary", "norm_profiles", "profiles_zuweisungen.csv"
     )
 
-    return pd.read_csv(file_path, sep=";", encoding="latin")
+    return pd.read_csv(file_path, sep=";", encoding="utf-8")
+    # return pd.read_csv(file_path, sep=";", encoding="latin")
 
 
 def read_occupancy_schedules_zuweisungen_data() -> pd.DataFrame | None:
