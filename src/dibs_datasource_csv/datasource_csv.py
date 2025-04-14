@@ -72,12 +72,14 @@ class DataSourceCSV(DataSource):
             gains_from_group_values: str,
             usage_from_norm: str,
             weather_period: str,
+            primary_energy_factor: str
     ):
         self.data_path = data_path
         self.profile_from_norm = profile_from_norm
         self.gains_from_group_values = gains_from_group_values
         self.usage_from_norm = usage_from_norm
         self.weather_period = weather_period
+        self.primary_energy_factor = primary_energy_factor
         # self.path_to_epw_file = os.path.join('iso_simulator', 'auxiliary', 'weather_data')
         self.epw_file = None
         self.epw_pe_factors = None
@@ -123,12 +125,30 @@ class DataSourceCSV(DataSource):
         Return type:
             list[PrimaryEnergyAndEmissionFactor]
         """
+        primary_energy_factor_mapping = {
+            'GEG': 'Primary Energy Factor GEG   [-]',
+            'EPBD2020': 'Primary Energy Factor,tot EPBD2020   [-]',
+            'EPBD2030': 'Primary Energy Factor,tot EPBD2030   [-]'
+        }
+
+        column_name = primary_energy_factor_mapping.get(self.primary_energy_factor.lower())
+
         gwp_pe_factors: pd.DataFrame = read_gwp_pe_factors_data()
 
-        self.epw_pe_factors = [
-            PrimaryEnergyAndEmissionFactor(*row.values)
-            for _, row in gwp_pe_factors.iterrows()
-        ]
+        epw_pe_factors = []
+        print(f'column_name is : {column_name}')
+
+        for _, row in gwp_pe_factors.iterrows():
+            epw_pe_factor = PrimaryEnergyAndEmissionFactor(
+                energy_carrier=row['Energy Carrier'],
+                primary_energy_factor_GEG=row[column_name],
+                relation_calorific_to_heating_value_GEG=row['Relation Calorific to Heating Value GEG  [-]'],
+                gwp_spezific_to_heating_value_GEG=row['GWP spezific to heating value GEG [g/kWh]'],
+                use=row['Use']
+            )
+            epw_pe_factors.append(epw_pe_factor)
+        self.epw_pe_factors = epw_pe_factors
+
 
     def get_schedule(self):
         """
