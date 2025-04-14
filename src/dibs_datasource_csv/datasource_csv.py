@@ -131,7 +131,7 @@ class DataSourceCSV(DataSource):
             'EPBD2030': 'Primary Energy Factor,tot EPBD2030   [-]'
         }
 
-        column_name = primary_energy_factor_mapping.get(self.primary_energy_factor.lower())
+        column_name = primary_energy_factor_mapping.get(self.primary_energy_factor)
 
         gwp_pe_factors: pd.DataFrame = read_gwp_pe_factors_data()
 
