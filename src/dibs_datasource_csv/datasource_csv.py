@@ -136,7 +136,6 @@ class DataSourceCSV(DataSource):
         gwp_pe_factors: pd.DataFrame = read_gwp_pe_factors_data()
 
         epw_pe_factors = []
-        print(f'column_name is : {column_name}')
 
         for _, row in gwp_pe_factors.iterrows():
             epw_pe_factor = PrimaryEnergyAndEmissionFactor(
