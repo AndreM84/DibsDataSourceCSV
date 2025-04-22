@@ -114,10 +114,15 @@ def read_occupancy_schedules_zuweisungen_data() -> pd.DataFrame | None:
         "occupancy_schedules_zuweisungen.csv",
     )
 
+    # return pd.read_csv(
+    #     file_path,
+    #     sep=";",
+    #     encoding="latin",
+    # )
     return pd.read_csv(
         file_path,
         sep=";",
-        encoding="latin",
+        encoding="utf-8",
     )
 
 
