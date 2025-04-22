@@ -169,11 +169,17 @@ def read_vergleichswerte_zuweisung() -> pd.DataFrame | None:
         data_path, "auxiliary", "TEKs", "TEK_NWG_Vergleichswerte_zuweisung.csv"
     )
 
+    # return pd.read_csv(
+    #     file_path,
+    #     sep=";",
+    #     decimal=",",
+    #     encoding="cp1250",
+    # )
     return pd.read_csv(
         file_path,
         sep=";",
         decimal=",",
-        encoding="cp1250",
+        encoding="utf-8",
     )
 
 
@@ -188,10 +194,17 @@ def read_tek_nwg_comparative_values() -> pd.DataFrame | None:
         data_path, "auxiliary", "TEKs", "TEK_NWG_Vergleichswerte.csv"
     )
 
+    # return pd.read_csv(
+    #     file_path,
+    #     sep=";",
+    #     decimal=",",
+    #     index_col=False,
+    #     encoding="cp1250",
+    # )
     return pd.read_csv(
         file_path,
         sep=";",
         decimal=",",
         index_col=False,
-        encoding="cp1250",
+        encoding="utf-8",
     )
