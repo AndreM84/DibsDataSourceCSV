@@ -327,5 +327,6 @@ class DataSourceCSV(DataSource):
             else:
                 gain_person_and_typ_norm, appliance_gains = get_gain_per_person_and_appliance_and_typ_norm_mza(row,
                                                                                                                self.gains_from_group_values)
+            print(f'gain_person_and_typ_norm is: {gain_person_and_typ_norm}, appliance_gains is : {appliance_gains}')
 
             return gain_person_and_typ_norm, appliance_gains
