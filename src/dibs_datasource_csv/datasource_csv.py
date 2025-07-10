@@ -148,7 +148,6 @@ class DataSourceCSV(DataSource):
             epw_pe_factors.append(epw_pe_factor)
         self.epw_pe_factors = epw_pe_factors
 
-
     def get_schedule(self):
         """
         Find occupancy schedule from SIA2024, depending on hk_geb, uk_geb from csv file
@@ -161,10 +160,6 @@ class DataSourceCSV(DataSource):
             Union[Tuple[List[ScheduleName], str], HkOrUkNotFoundError]
         """
         data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
-        print(f'hk_geb: {self.building.hk_geb}, uk_geb: {self.building.uk_geb}')
-        print('---------------------------------------------------------------------')
-        print(f'data: {data}')
-        print('---------------------------------------------------------------------')
 
         try:
             if not hk_and_uk_in_zuweisungen(
@@ -173,6 +168,9 @@ class DataSourceCSV(DataSource):
                 raise HkOrUkNotFoundError("hk or uk unknown")
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
             schedule_name: str = get_schedule_name(row)
+            print('---------------------------------------------------------------------')
+            print(f'hk_geb: {self.building.hk_geb}, uk_geb: {self.building.uk_geb}, schedule_name: {schedule_name}')
+            print('---------------------------------------------------------------------')
             schedule_file: pd.DataFrame = read_schedule_file(schedule_name)
 
             return (
