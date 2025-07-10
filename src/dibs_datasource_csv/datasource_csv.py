@@ -167,6 +167,7 @@ class DataSourceCSV(DataSource):
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
+            print(f'row: {row}')
             schedule_name: str = get_schedule_name(row)
             print('---------------------------------------------------------------------')
             print(f'hk_geb: {self.building.hk_geb}, uk_geb: {self.building.uk_geb}, schedule_name: {schedule_name}')
