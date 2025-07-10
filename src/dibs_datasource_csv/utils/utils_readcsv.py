@@ -166,7 +166,8 @@ def read_vergleichswerte_zuweisung() -> pd.DataFrame | None:
         file_path,
         sep=";",
         decimal=",",
-        encoding="cp1250",
+        encoding="utf-8",
+        # encoding="cp1250",
     )
 
 
@@ -186,5 +187,6 @@ def read_tek_nwg_comparative_values() -> pd.DataFrame | None:
         sep=";",
         decimal=",",
         index_col=False,
-        encoding="cp1250",
+        encoding="utf-8",
+        # encoding="cp1250",
     )
