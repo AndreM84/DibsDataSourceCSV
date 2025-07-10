@@ -161,6 +161,10 @@ class DataSourceCSV(DataSource):
             Union[Tuple[List[ScheduleName], str], HkOrUkNotFoundError]
         """
         data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
+        print(f'hk_geb: {self.building.hk_geb}, uk_geb: {self.building.uk_geb}')
+        print('---------------------------------------------------------------------')
+        print(f'data: {data}')
+        print('---------------------------------------------------------------------')
 
         try:
             if not hk_and_uk_in_zuweisungen(
