@@ -194,21 +194,12 @@ class DataSourceCSV(DataSource):
         data: pd.DataFrame = read_vergleichswerte_zuweisung()
         db_teks: pd.DataFrame = read_tek_nwg_comparative_values()
 
-        print(f'-----------------------------------------------------')
-        print(f'data: {data}')
-        print(f'-----------------------------------------------------')
-        print(f'db_teks: {db_teks}')
-        print(f'-----------------------------------------------------')
-
         try:
             if hk_or_uk_not_in_zuweisungen(
                     data, self.building.hk_geb, self.building.uk_geb
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
             row: pd.DataFrame = find_row(data, self.building.uk_geb)
-            print(f'-----------------------------------------------------')
-            print(f'row: {row}')
-            print(f'-----------------------------------------------------')
             tek_name: str = get_tek_name(row)
             df_tek: pd.DataFrame = get_tek_data_frame_based_on_tek_name(
                 db_teks, tek_name
