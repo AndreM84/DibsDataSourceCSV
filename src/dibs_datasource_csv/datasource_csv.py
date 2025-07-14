@@ -85,7 +85,7 @@ class DataSourceCSV(DataSource):
         self.epw_pe_factors = None
         self.building = None
         self.buildings = None
-        self.occupancy_schedules_assignments = None
+        self.occupancy_schedules_assignments = read_occupancy_schedules_zuweisungen_data()
 
     """
     This constructor to initialize an instance of the DataSourceCSV class
@@ -160,10 +160,10 @@ class DataSourceCSV(DataSource):
         Return type:
             Union[Tuple[List[ScheduleName], str], HkOrUkNotFoundError]
         """
-
+        print(f'self.occupancy_schedules_assignments: {self.occupancy_schedules_assignments}')
+        print('---------------------------------------------------------------------------------')
         if self.occupancy_schedules_assignments is None:
             print(f'occupancy_schedules_assignments is : None')
-            self.occupancy_schedules_assignments = read_occupancy_schedules_zuweisungen_data()
 
         # data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
 
