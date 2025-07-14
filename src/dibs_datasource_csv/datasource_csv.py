@@ -162,6 +162,7 @@ class DataSourceCSV(DataSource):
         """
 
         if self.occupancy_schedules_assignments is None:
+            print(f'occupancy_schedules_assignments is : None')
             self.occupancy_schedules_assignments = read_occupancy_schedules_zuweisungen_data()
 
         # data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
@@ -174,7 +175,7 @@ class DataSourceCSV(DataSource):
             row: pd.DataFrame = find_row(self.occupancy_schedules_assignments, self.building.uk_geb)
             schedule_name: str = get_schedule_name(row)
             schedule_file: pd.DataFrame = read_schedule_file(schedule_name)
-            print(f'uk_geb: {self.building.uk_geb}, hk_geb: {self.building.hk_geb}, schedule_name: {schedule_name}')
+            # print(f'uk_geb: {self.building.uk_geb}, hk_geb: {self.building.hk_geb}, schedule_name: {schedule_name}')
 
             return (
                 [ScheduleName(*row.values) for _, row in schedule_file.iterrows()],
