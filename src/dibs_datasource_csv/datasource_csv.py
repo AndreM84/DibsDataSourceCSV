@@ -85,6 +85,7 @@ class DataSourceCSV(DataSource):
         self.epw_pe_factors = None
         self.building = None
         self.buildings = None
+        self.occupancy_schedules_assignments = None
 
     """
     This constructor to initialize an instance of the DataSourceCSV class
@@ -159,16 +160,21 @@ class DataSourceCSV(DataSource):
         Return type:
             Union[Tuple[List[ScheduleName], str], HkOrUkNotFoundError]
         """
-        data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
+
+        if self.occupancy_schedules_assignments is None:
+            self.occupancy_schedules_assignments = read_occupancy_schedules_zuweisungen_data()
+
+        # data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
 
         try:
             if not hk_and_uk_in_zuweisungen(
-                    data, self.building.hk_geb, self.building.uk_geb
+                    self.occupancy_schedules_assignments, self.building.hk_geb, self.building.uk_geb
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
-            row: pd.DataFrame = find_row(data, self.building.uk_geb)
+            row: pd.DataFrame = find_row(self.occupancy_schedules_assignments, self.building.uk_geb)
             schedule_name: str = get_schedule_name(row)
             schedule_file: pd.DataFrame = read_schedule_file(schedule_name)
+            print(f'uk_geb: {self.building.uk_geb}, hk_geb: {self.building.hk_geb}, schedule_name: {schedule_name}')
 
             return (
                 [ScheduleName(*row.values) for _, row in schedule_file.iterrows()],
