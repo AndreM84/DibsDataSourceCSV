@@ -86,6 +86,9 @@ class DataSourceCSV(DataSource):
         self.building = None
         self.buildings = None
         self.occupancy_schedules_assignments = read_occupancy_schedules_zuweisungen_data()
+        self.vergleichswerte_zuweisung = read_vergleichswerte_zuweisung()
+        self.tek_nwg_comparative_values = read_tek_nwg_comparative_values()
+        self.profiles_zuweisungen_data = read_profiles_zuweisungen_data()
 
     """
     This constructor to initialize an instance of the DataSourceCSV class
@@ -160,10 +163,6 @@ class DataSourceCSV(DataSource):
         Return type:
             Union[Tuple[List[ScheduleName], str], HkOrUkNotFoundError]
         """
-        print(f'self.occupancy_schedules_assignments: {self.occupancy_schedules_assignments}')
-        print('---------------------------------------------------------------------------------')
-        if self.occupancy_schedules_assignments is None:
-            print(f'occupancy_schedules_assignments is : None')
 
         # data: pd.DataFrame = read_occupancy_schedules_zuweisungen_data()
 
@@ -198,18 +197,18 @@ class DataSourceCSV(DataSource):
         Return type:
             Union[Tuple[float, str], ValueError]
         """
-        data: pd.DataFrame = read_vergleichswerte_zuweisung()
-        db_teks: pd.DataFrame = read_tek_nwg_comparative_values()
+        # data: pd.DataFrame = read_vergleichswerte_zuweisung()
+        # db_teks: pd.DataFrame = read_tek_nwg_comparative_values()
 
         try:
             if hk_or_uk_not_in_zuweisungen(
-                    data, self.building.hk_geb, self.building.uk_geb
+                    self.vergleichswerte_zuweisung, self.building.hk_geb, self.building.uk_geb
             ):
                 raise HkOrUkNotFoundError("hk or uk unknown")
-            row: pd.DataFrame = find_row(data, self.building.uk_geb)
+            row: pd.DataFrame = find_row(self.vergleichswerte_zuweisung, self.building.uk_geb)
             tek_name: str = get_tek_name(row)
             df_tek: pd.DataFrame = get_tek_data_frame_based_on_tek_name(
-                db_teks, tek_name
+                self.tek_nwg_comparative_values, tek_name
             )
             tek_dhw: float = get_tek_dhw(df_tek)
             return tek_dhw, tek_name
@@ -296,15 +295,15 @@ class DataSourceCSV(DataSource):
             Union[Tuple[int, int], ValueError]
         """
 
-        gains_zuweisungen: pd.DataFrame = read_profiles_zuweisungen_data()
+        # gains_zuweisungen: pd.DataFrame = read_profiles_zuweisungen_data()
 
         try:
-            if hk_in_zuweisungen(self.building.hk_geb, gains_zuweisungen):
-                if not uk_in_zuweisungen(self.building.uk_geb, gains_zuweisungen):
+            if hk_in_zuweisungen(self.building.hk_geb, self.profiles_zuweisungen_data):
+                if not uk_in_zuweisungen(self.building.uk_geb, self.profiles_zuweisungen_data):
                     raise UsageTimeError(
                         "Something went wrong with the function getUsagetime()"
                     )
-                row: pd.DataFrame = find_row(gains_zuweisungen, self.building.uk_geb)
+                row: pd.DataFrame = find_row(self.profiles_zuweisungen_data, self.building.uk_geb)
                 return get_usage_start_end(str(self.usage_from_norm), row)
         except UsageTimeError as error:
             print(error)
@@ -325,10 +324,10 @@ class DataSourceCSV(DataSource):
         Return type:
             Tuple[Tuple[float, str], float]
         """
-        data: pd.DataFrame = read_profiles_zuweisungen_data()
+        # data: pd.DataFrame = read_profiles_zuweisungen_data()
 
-        if hk_and_uk_in_zuweisungen(data, self.building.hk_geb, self.building.uk_geb):
-            row: pd.DataFrame = find_row(data, self.building.uk_geb)
+        if hk_and_uk_in_zuweisungen(self.profiles_zuweisungen_data, self.building.hk_geb, self.building.uk_geb):
+            row: pd.DataFrame = find_row(self.profiles_zuweisungen_data, self.building.uk_geb)
 
             gain_person_and_typ_norm: tuple[float, str]
             appliance_gains: float
