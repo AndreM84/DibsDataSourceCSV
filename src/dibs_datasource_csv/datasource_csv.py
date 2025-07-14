@@ -89,6 +89,7 @@ class DataSourceCSV(DataSource):
         self.vergleichswerte_zuweisung = read_vergleichswerte_zuweisung()
         self.tek_nwg_comparative_values = read_tek_nwg_comparative_values()
         self.profiles_zuweisungen_data = read_profiles_zuweisungen_data()
+        print(f'Datasource Objekt wurde erstellt')
 
     """
     This constructor to initialize an instance of the DataSourceCSV class
