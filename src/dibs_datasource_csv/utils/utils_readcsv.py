@@ -21,7 +21,7 @@ def read_user_building(data_path: str) -> pd.DataFrame | None:
     # path_parts = data_path.split("/")
     # file_path = os.path.join(*path_parts)
 
-    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8")
+    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8", decimal=",")
 
 
 def read_user_buildings(data_path: str) -> pd.DataFrame | None:
@@ -38,7 +38,7 @@ def read_user_buildings(data_path: str) -> pd.DataFrame | None:
     # path_parts = data_path.split("/")
     # file_path = os.path.join(*path_parts)
 
-    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8")
+    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8", decimal=",")
 
 
 def read_gwp_pe_factors_data() -> pd.DataFrame | None:
@@ -93,7 +93,6 @@ def read_profiles_zuweisungen_data() -> pd.DataFrame | None:
     file_path = os.path.join(
         data_path, "auxiliary", "norm_profiles", "profiles_zuweisungen.csv"
     )
-
 
     return pd.read_csv(file_path, sep=";", encoding="utf-8")
 
