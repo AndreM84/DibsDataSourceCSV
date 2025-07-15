@@ -21,7 +21,7 @@ def read_user_building(data_path: str) -> pd.DataFrame | None:
     # path_parts = data_path.split("/")
     # file_path = os.path.join(*path_parts)
 
-    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf8")
+    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8")
 
 
 def read_user_buildings(data_path: str) -> pd.DataFrame | None:
