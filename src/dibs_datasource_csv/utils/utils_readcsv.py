@@ -38,7 +38,15 @@ def read_user_buildings(data_path: str) -> pd.DataFrame | None:
     # path_parts = data_path.split("/")
     # file_path = os.path.join(*path_parts)
 
-    return pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8", decimal=",")
+    df = pd.read_csv(data_path, sep=";", index_col=False, encoding="utf-8", decimal=",")
+
+    for col in df.columns:
+        try:
+            df[col] = pd.to_numeric(df[col])
+        except:
+            pass
+
+    return df
 
 
 def read_gwp_pe_factors_data() -> pd.DataFrame | None:
