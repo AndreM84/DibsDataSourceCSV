@@ -42,7 +42,7 @@ addopts = [
 
 
 [project.urls]
-Repository = "https://github.com/IWUGERMANY/DibsDataSourceCSV"
+Repository = "https://github.com/AndreM84/DibsDataSourceCSV"
 
 [tool.black]
 line-length = 88
