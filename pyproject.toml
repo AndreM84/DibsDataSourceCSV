@@ -20,9 +20,9 @@ authors = [
 dependencies = [
   "pandas == 2.2.1",
   "numpy>1.22.4,<=2.0.0.dev0",
-  "dibs_computing_core @ git+https://github.com/AndreM84/DibsComputingCore.git@dibscc101",
+  "dibs_computing_core @ git+https://github.com/AndreM84/DibsComputingCore_AM.git@dibscc101",
 #  "dibs_computing_core",
-  "dibs_data @ git+https://github.com/AndreM84/DibsData.git@dd101copy",
+  "dibs_data @ git+https://github.com/AndreM84/DibsData_AM.git@dd101copy",
 #  "dibs_data == 1.0.1",
   "openpyxl == 3.1.2",
   "geopy == 2.4.0"
@@ -34,7 +34,7 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/AndreM84/DibsDataSourceCSV"
+Repository = "https://github.com/AndreM84/DibsDataSourceCSV_AM"
 
 [tool.black]
 line-length = 88
